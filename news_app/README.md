@@ -1,6 +1,6 @@
 # news_app
 
-A new Flutter project.
+<video src='assets/news_app.mp4' width=180/>
 
 ## Getting Started
 
