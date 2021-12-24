@@ -45,6 +45,8 @@ class RestAPIService {
             "error":
                 'Oh No! Unable to process your request. Possible cases may be server is not reachable or if server runs on VPN then VPN should be connected on mobile device!'
           };
+        } catch (exe) {
+          return {"error": "Unexpected Error"};
         }
       default:
     }

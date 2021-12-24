@@ -62,7 +62,7 @@ class NewsDetailScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Author",
+                          articles.author != null ? "Author" : "",
                           style: Theme.of(context).textTheme.caption!.copyWith(
                               fontWeight: FontWeight.bold, color: Colors.black),
                         ),

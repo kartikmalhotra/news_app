@@ -2,7 +2,6 @@ import 'package:news_app/config/application.dart';
 import 'package:news_app/constants/const.dart';
 
 abstract class NewsRepository {
-
   // Fetch Category
   Future<dynamic> fetchCategory(String category);
 
@@ -11,13 +10,11 @@ abstract class NewsRepository {
 }
 
 class NewsRepositoryImpl extends NewsRepository {
-
-
   @override
   Future<dynamic> fetchCategory(String category) async {
     try {
       final response = await Application.restAPIService!.fetchData(
-          "https://newsapi.org/v2/top-headlines?category=$category&country=in&apiKey=33987db4491c4d32a49c525d42863838",
+          "https://newsapi.org/v2/top-headlines?category=$category&country=in&apiKey=0cdfa5540e4b49019dbb0406a193e0b5",
           RestAPIEndPoint.GET);
       return response;
     } catch (e) {
@@ -29,7 +26,7 @@ class NewsRepositoryImpl extends NewsRepository {
   Future<dynamic> searchString(String string) async {
     try {
       final response = await Application.restAPIService!.fetchData(
-          "https://newsapi.org/v2/top-headlines?q=$string&apiKey=33987db4491c4d32a49c525d42863838",
+          "https://newsapi.org/v2/top-headlines?q=$string&apiKey=0cdfa5540e4b49019dbb0406a193e0b5",
           RestAPIEndPoint.GET);
       return response;
     } catch (e) {

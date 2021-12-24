@@ -13,7 +13,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String? errorText;
   List<String> _categories = [
     "Business",
     "Entertainment",
@@ -78,9 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (state.articles != null) {
         return _displayData(context, state);
       } else {
-        setState(() {
-          errorText = state.errorText;
-        });
+        return Center(child: Text("${state.errorText}"));
       }
     }
 
