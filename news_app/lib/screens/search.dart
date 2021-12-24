@@ -88,7 +88,7 @@ class _SearchScreenState extends State<SearchScreen> {
       height: AppScreenConfig.screenHeight! - 40,
       width: AppScreenConfig.screenWidth! - 40.0,
       child: ListView.builder(
-        itemCount: state.articles?.articles?.length ?? 0,
+        itemCount: state.articles?.length ?? 0,
         scrollDirection: Axis.vertical,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
@@ -97,9 +97,9 @@ class _SearchScreenState extends State<SearchScreen> {
               callback: () => Navigator.pushNamed(
                 context,
                 AppRoutes.newsDetailScreen,
-                arguments: state.articles!.articles![index],
+                arguments: state.articles![index],
               ),
-              article: state.articles!.articles![index],
+              article: state.articles![index],
               width: AppScreenConfig.screenWidth! - 50.0,
               height: 350,
             ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/shared/bloc/news_bloc.dart';
 import 'package:news_app/shared/model/model.dart';
 
 class AppCard extends StatelessWidget {
@@ -36,25 +38,33 @@ class AppCard extends StatelessWidget {
                   topLeft: Radius.circular(20.0),
                   topRight: Radius.circular(20.0),
                 ),
-                child: Image.network(
-                  "${article.urlToImage}",
-                  fit: BoxFit.fitHeight,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Center(
-                      child: AppCircularProgressLoader(),
-                    );
-                  },
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Center(
-                      child: AppCircularProgressLoader(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
-                  },
+                child: Stack(
+                  children: <Widget>[
+                    Image.network(
+                      "${article.urlToImage}",
+                      fit: BoxFit.fitHeight,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Center(
+                          child: AppCircularProgressLoader(),
+                        );
+                      },
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: AppCircularProgressLoader(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
+                    ),
+                    Align(
+                      alignment: Alignment(0.9, -0.9),
+                      child: FavourateIcon(article: article),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -109,6 +119,37 @@ class AppCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class FavourateIcon extends StatefulWidget {
+  final Articles article;
+
+  const FavourateIcon({Key? key, required this.article}) : super(key: key);
+
+  @override
+  _FavourateIconState createState() => _FavourateIconState();
+}
+
+class _FavourateIconState extends State<FavourateIcon> {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      disabledColor: Colors.indigoAccent,
+      onPressed: () {
+        setState(() {
+          widget.article.favourate = !widget.article.favourate;
+          BlocProvider.of<NewsBloc>(context)
+              .add(FavourateIconTappedEvent(article: widget.article));
+        });
+      },
+      icon: Icon(
+        widget.article.favourate
+            ? Icons.favorite
+            : Icons.favorite_outline_sharp,
+        color: widget.article.favourate ? Colors.pinkAccent : Colors.white,
       ),
     );
   }

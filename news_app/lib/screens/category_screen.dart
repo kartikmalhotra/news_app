@@ -48,7 +48,7 @@ class CategoryScreen extends StatelessWidget {
   }
 
   Widget _checkListSize(BuildContext context, CategoryScreenDataLoaded state) {
-    if (state.articles!.articles!.isEmpty) {
+    if (state.categoryArticles!.isEmpty) {
       return Center(
         child: Text("Oops no article is there"),
       );
@@ -62,7 +62,7 @@ class CategoryScreen extends StatelessWidget {
       height: double.maxFinite,
       width: AppScreenConfig.screenWidth! - 40.0,
       child: ListView.builder(
-        itemCount: state.articles?.articles?.length ?? 0,
+        itemCount: state.categoryArticles?.length ?? 0,
         scrollDirection: Axis.vertical,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
@@ -71,9 +71,9 @@ class CategoryScreen extends StatelessWidget {
               callback: () => Navigator.pushNamed(
                 context,
                 AppRoutes.newsDetailScreen,
-                arguments: state.articles!.articles![index],
+                arguments: state.categoryArticles![index],
               ),
-              article: state.articles!.articles![index],
+              article: state.categoryArticles![index],
               width: AppScreenConfig.screenWidth! - 50.0,
               height: 350,
             ),

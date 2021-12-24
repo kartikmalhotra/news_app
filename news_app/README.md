@@ -1,6 +1,6 @@
 # news_app
 
-<video src='assets/news_app.mp4' width=180/>
+<video src='assets/new_news_app.mp4' width=180/>
 
 ## Getting Started
 

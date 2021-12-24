@@ -4,16 +4,23 @@ import 'package:news_app/config/application.dart';
 import 'package:news_app/config/screen_config.dart';
 import 'package:news_app/routes/routes.dart';
 import 'package:news_app/routes/routes_const.dart';
+import 'package:news_app/screens/favourate_screen.dart';
 import 'package:news_app/screens/home_screen.dart';
 import 'package:news_app/screens/profile_screen.dart';
 import 'package:news_app/services/rest_service.dart';
 import 'package:news_app/shared/bloc/news_bloc.dart';
 import 'package:news_app/shared/repository/repository.dart';
+import 'package:uuid/uuid.dart';
 
-void main() {
+import 'services/local_storage.dart';
+
+Future<void> main() async {
   /// Getting Instance of all the classes needed
+  WidgetsFlutterBinding.ensureInitialized();
+  Application.localStorageService = await LocalStorageService.getInstance();
   Application.restAPIService = RestAPIService.getInstance();
   Application.routeSettings = AppRouteSetting.getInstance();
+  Application.uuid = Uuid();
   runApp(MyApp());
 }
 
@@ -73,9 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
         index: _currentIndex,
         children: [
           HomeScreen(),
-          Center(
-            child: Text("Nothing added to Favourate"),
-          ),
+          FavourateScreen(),
           ProfileScreen(),
         ],
       ),

@@ -4,6 +4,7 @@ import 'package:news_app/routes/routes_const.dart';
 import 'package:news_app/screens/category_screen.dart';
 import 'package:news_app/screens/news_screen.dart';
 import 'package:news_app/screens/search.dart';
+import 'package:news_app/screens/show_on_web.dart';
 import 'package:news_app/shared/model/model.dart';
 
 class AppRouteSetting {
@@ -34,6 +35,10 @@ class AppRouteSetting {
                 NewsDetailScreen(articles: settings.arguments as Articles));
       case AppRoutes.searchScreen:
         return MaterialPageRoute(builder: (_) => SearchScreen());
+      case AppRoutes.showOnWeb:
+        return MaterialPageRoute(
+            builder: (_) =>
+                ShowOnWeb(articles: settings.arguments as Articles));
       default:
         return MaterialPageRoute(
           builder: (_) => Center(child: Text("Hi There")),

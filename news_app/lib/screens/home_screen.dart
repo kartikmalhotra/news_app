@@ -64,7 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
           child: BlocBuilder<NewsBloc, NewsState>(
             buildWhen: (previous, current) =>
                 current is CategoryScreenLoader ||
-                current is CategoryScreenDataLoaded,
+                current is CategoryScreenDataLoaded ||
+                current is FavourateScreenDataLoaded,
             builder: _homeScreenBuilder,
           ),
         ),
@@ -73,8 +74,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _homeScreenBuilder(BuildContext context, NewsState state) {
-    if (state is CategoryScreenDataLoaded) {
-      if (state.articles != null) {
+    if (state is CategoryScreenDataLoaded ||
+        state is FavourateScreenDataLoaded) {
+      if (state.categoryArticles != null) {
         return _displayData(context, state);
       } else {
         return Center(child: Text("${state.errorText}"));
@@ -125,13 +127,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _displayData(BuildContext context, CategoryScreenDataLoaded state) {
+  Widget _displayData(BuildContext context, NewsState state) {
     return Container(
       height: double.maxFinite,
       width: AppScreenConfig.screenWidth! - 40.0,
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: state.articles?.articles?.length ?? 0,
+        itemCount: state.categoryArticles?.length ?? 0,
         scrollDirection: Axis.vertical,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
@@ -140,9 +142,9 @@ class _HomeScreenState extends State<HomeScreen> {
               callback: () => Navigator.pushNamed(
                 context,
                 AppRoutes.newsDetailScreen,
-                arguments: state.articles!.articles![index],
+                arguments: state.categoryArticles![index],
               ),
-              article: state.articles!.articles![index],
+              article: state.categoryArticles![index],
               width: AppScreenConfig.screenWidth! - 50.0,
               height: 350,
             ),
